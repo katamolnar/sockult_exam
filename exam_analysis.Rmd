@@ -1,0 +1,142 @@
+---
+title: "exam"
+author: "Kata Molnar"
+date: "14/05/2020"
+output:   
+  md_document:
+    variant: markdown_github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(pacman)
+
+pacman::p_load(dplyr, tidyverse, brms, patchwork, RColorBrewer)
+
+data10 <- read.csv("table10.csv")
+data20 <- read.csv("table20.csv")
+data30 <- read.csv("table30.csv")
+data40 <- read.csv("table40.csv")
+data50 <- read.csv("table50.csv")
+data60 <- read.csv("table60.csv")
+data70 <- read.csv("table70.csv")
+data80 <- read.csv("table80.csv")
+
+```
+
+## DATA CLEANING
+```{r}
+# extracting, averaging and renaming the columns for the different environment values
+
+# 10
+d10 <- data10 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d10$Environment <- c(10)
+
+# 20
+d20 <- data20 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d20$Environment <- c(20)
+
+# 30
+d30 <- data30 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d30$Environment <- c(30)
+
+# 30
+d30 <- data30 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d30$Environment <- c(30)
+
+# 40
+d40 <- data40 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d40$Environment <- c(40)
+
+# 50
+d50 <- data50 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d50$Environment <- c(50)
+
+# 60
+d60 <- data60 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d60$Environment <- c(60)
+
+# 70
+d70 <- data70 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d70$Environment <- c(70)
+
+# 80
+d80 <- data80 %>% group_by(X.step.) %>% summarise(No_Dep = mean(count.turtles.with...severity....No.Depression...), Mild_Dep = mean(count.turtles.with...severity....Mild.Depression...), Moderate_Dep = mean(count.turtles.with...severity....Moderate.Depression...), Severe_Dep = mean(count.turtles.with...severity....Severe.Depression...), All_Dep = mean(count.turtles.with...severity.....No.Depression...), Mean_DScore = mean(mean...dep.score...of.turtles), Treatment = mean(count.turtles.with...treatment...), Talk = mean(count.turtles.with...talks...), Prob_of_Talking = mean(mean...prob.of.talking...of.turtles), Prob_of_Treatment = mean(mean...prob.of.treatment...of.turtles))
+
+d80$Environment <- c(80)
+
+# merge the datasets
+merged1 <- rbind(d10, d20)
+merged2 <- rbind(merged1, d30)
+merged3 <- rbind(merged2, d40)
+merged4 <- rbind(merged3, d50)
+merged5 <- rbind(merged4, d60)
+merged6 <- rbind(merged5, d70)
+merged_all <- rbind(merged6, d80)
+
+colnames(merged_all)[1] <- "Week"
+
+# save file
+write.csv(merged_all, file = "super_data.csv")
+
+data <- read.table("super_data.csv", sep = ",", header = T)
+
+```
+
+## DESCRIPTIVE STATS
+```{r}
+
+summary(data)
+
+# Creating fancy table of descriptive stats
+
+library(table1)
+table1::label(data$No_Dep) <- "No Depression" 
+table1::label(data$Mild_Dep) <- "Mild Depression"
+table1::label(data$Moderate_Dep) <- "Moderate Depression"
+table1::label(data$Severe_Dep) <- "Severe Depression"
+table1::label(data$All_Dep) <- "All Depressed"
+table1::label(data$Treatment) <- "Treatment"
+table1::label(data$Prob_of_Treatment) <- "Prob of Treatment"
+table1::label(data$Talk) <- "Talk"
+table1::label(data$Prob_of_Talking) <- "Prob of Talking"
+table1::table1(~ No_Dep + Mild_Dep + Moderate_Dep + Severe_Dep + All_Dep + Treatment + Prob_of_Treatment + Talk + Prob_of_Talking | Environment, data = data)
+
+```
+
+## PRETTY PLOTS
+```{r}
+w1 <- filter(data, Week == 1 | Week == 104)
+
+# treatment seeking
+treatment <- ggplot(w1, aes(Week, Treatment, color=Environment)) + geom_point (aes(group = Environment)) + geom_line(aes(group = Environment)) + labs(x = "Week" , y = "Agents with treatment", title = "Number of agents seeking treatment on W1 and W104")
+treatment + scale_color_gradientn(colours = rainbow(5))
+
+# all depressed
+dep <-ggplot(w1, aes(Week, All_Dep)) + geom_point (aes(group = Environment, color= Environment))+ geom_line(aes(group = Environment, color=Environment)) + labs(x = "Week" , y = "Agents with depression", title = "Number of agents with depression on W1 and W104")
+dep + scale_color_gradientn(colours = rainbow(5))
+
+# depression categories
+a <- ggplot(w1, aes(Week, No_Dep, color = Environment)) + geom_point (aes(group = Environment)) + geom_line(aes(group = Environment)) + labs(x = "Week" , y = "Agents with no depression", title = "No depression")
+
+b <- ggplot(w1, aes(Week, Mild_Dep, color = Environment)) + geom_point (aes(group = Environment)) + geom_line(aes(group = Environment)) + labs(x = "Week" , y = "Agents with mild depression", title = "Mild depression")
+
+c <- ggplot(w1, aes(Week, Moderate_Dep, color = Environment)) + geom_point (aes(group = Environment)) + geom_line(aes(group = Environment)) + labs(x = "Week" , y = "Agents with moderate depression", title = "Moderate depression")
+
+d <- ggplot(w1, aes(Week, Severe_Dep, color = Environment)) + geom_point (aes(group = Environment)) + geom_line(aes(group = Environment)) + labs(x = "Week" , y = "Agents with severe depression", title = "Severe depression")
+
+a + scale_color_gradientn(colours = rainbow(5)) + b + scale_color_gradientn(colours = rainbow(5)) + c + scale_color_gradientn(colours = rainbow(5)) + d + scale_color_gradientn(colours = rainbow(5))
+
+```
+
